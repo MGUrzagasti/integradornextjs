@@ -4,26 +4,25 @@ import { useRouter } from "next/navigation";
 export default function Foter() {
  const router = useRouter()
       
-      const onSubmit  =  (e) =>  {
+      const onSubmit  = async (e) =>  {
         e.preventDefault()
         console.log(e)
-        const primern = e.target.primern.value
-        const segundo = e.target.segundon.value 
-        const telefono =e.target.telefono.value
+        const pnombre = e.target.primern.value
+        const snombre = e.target.segundon.value 
+       
         const correo = e.target.email.value 
         const comentario = e.target.area.value 
-        console.log(primern,segundo,telefono,correo,comentario)
-    
-      const res = fetch("/app/api/task",{
-       method: "POST",
-       body: JSON.stringify({primern,segundo,telefono,correo,comentario}),
-       headers: {
-        "content-type ": "aplication.JSON"
-       }
-      })
-      const data =  res.json()
-      console.log(data)
-      router.push("/")
+        console.log(pnombre,snombre,correo,comentario)
+       const res=   await    fetch ("/api/subscriptores",{
+          method: "POST",
+          body: JSON.stringify({pnombre,snombre,correo,comentario}),
+          headers:{
+            "Content-Type": "application/json"
+          }
+           
+        })
+            const data = await res.json()
+            console.log(data)
     }
 
       return (
@@ -38,17 +37,16 @@ export default function Foter() {
 				<h1 class="font-bold uppercase text-5xl">Escribinos <br /> </h1>
 			</div>
 			<div class="grid grid-cols-1 gap-5 md:grid-cols-2 mt-5">
-				<input class="w-full bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
-            type="textpn" id="primern" placeholder="Primer Nombre*" />
-				<input class="w-full bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
-            type="textsn" id="segundon" placeholder="Segundo Nombre*" />
-				<input class="w-full bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
+				<input class="w-full bg-blue-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
+            type="primern" id="primern" placeholder=" Nombre*" />
+				<input class="w-full bg-blue-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
+            type="segundon" id="segundon" placeholder="Apellido*" />
+				<input class="w-full bg-blue-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
             type="email" id="email" placeholder="Email*" />
-				<input class="w-full bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
-            type="numero" id="telefono" placeholder="Telefono*" />
+			
         </div>
 				<div class="my-4">
-					<textarea id="area" placeholder="Comentario*" class="w-full h-32 bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"></textarea>
+					<textarea id="area" placeholder="Comentario*" class="w-full h-32 bg-blue-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"></textarea>
 				
         </div>
 				<div class="my-2 w-1/2 lg:w-1/4">
@@ -94,16 +92,6 @@ export default function Foter() {
 </div>
 
 </form>
-
-
-
-  
-  
-  
-  
-  
-
-
 
 
     )
